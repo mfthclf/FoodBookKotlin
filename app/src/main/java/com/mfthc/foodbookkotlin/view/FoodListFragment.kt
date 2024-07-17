@@ -1,16 +1,16 @@
-package com.mfthc.foodbookkotlin
+package com.mfthc.foodbookkotlin.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mfthc.foodbookkotlin.databinding.FragmentFoodDetailBinding
+import com.mfthc.foodbookkotlin.databinding.FragmentFoodListBinding
 
 
-class FoodDetailFragment : Fragment() {
+class FoodListFragment : Fragment() {
 
-    private var _binding: FragmentFoodDetailBinding? = null
+    private var _binding: FragmentFoodListBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +23,7 @@ class FoodDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentFoodDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentFoodListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
