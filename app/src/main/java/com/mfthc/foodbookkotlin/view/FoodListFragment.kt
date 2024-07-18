@@ -6,6 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mfthc.foodbookkotlin.databinding.FragmentFoodListBinding
+import com.mfthc.foodbookkotlin.service.FoodAPI
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 
 class FoodListFragment : Fragment() {
@@ -29,6 +36,9 @@ class FoodListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
     }
 
     override fun onDestroyView() {
