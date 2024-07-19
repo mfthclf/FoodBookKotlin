@@ -21,7 +21,32 @@ class FoodListViewModel(application: Application) : AndroidViewModel(application
     private val foodApiService = FoodAPIService()
     private val specialSharedPreferences = SpecialSharedPreferences(getApplication())
 
-    private fun GetDataFromNet() {
+    private var refreshTime = 10 * 60 * 1000 * 1000 * 1000L
+
+     fun refreshData() {
+        val savedTime = specialSharedPreferences.getTime()
+        if (savedTime != null && savedTime != 0L && System.nanoTime() - savedTime < refreshTime) {
+            getDataFromRoom()
+        } else {
+            getDataFromNet()
+        }
+    }
+    fun refreshDataFromInternet(){
+        getDataFromNet()
+    }
+
+    private fun getDataFromRoom() {
+        foodLoading.value = true
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val foodList = FoodDB(getApplication()).getDao().getAllFood()
+            withContext(Dispatchers.Main) {
+                showFoods(foodList)
+            }
+        }
+    }
+
+    private fun getDataFromNet() {
 
         foodLoading.value = true
 
@@ -29,17 +54,18 @@ class FoodListViewModel(application: Application) : AndroidViewModel(application
             val foodList = foodApiService.getData()
             withContext(Dispatchers.Main) {
                 foodLoading.value = false
-                SaveToRoom(foodList)
+                saveToRoom(foodList)
             }
         }
     }
-    private fun showFoods(foodList: List<Food>){
+
+    private fun showFoods(foodList: List<Food>) {
         foods.value = foodList
-        foodErrorMessage.value=false
-        foodLoading.value=false
+        foodErrorMessage.value = false
+        foodLoading.value = false
     }
 
-    private fun SaveToRoom(foodList: List<Food>) {
+    private fun saveToRoom(foodList: List<Food>) {
         viewModelScope.launch {
             val dao = FoodDB(getApplication()).getDao()
             dao.deleteAllFood()
