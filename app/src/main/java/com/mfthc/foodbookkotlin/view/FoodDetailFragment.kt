@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mfthc.foodbookkotlin.databinding.FragmentFoodDetailBinding
+import kotlinx.coroutines.CoroutineScope
 
 
 class FoodDetailFragment : Fragment() {
@@ -29,6 +30,7 @@ class FoodDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
     }
 
     override fun onDestroyView() {

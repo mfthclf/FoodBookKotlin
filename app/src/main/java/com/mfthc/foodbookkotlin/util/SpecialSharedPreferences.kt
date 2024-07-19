@@ -26,10 +26,11 @@ class SpecialSharedPreferences {
             return SpecialSharedPreferences()
         }
 
-        fun saveTime(time: Long) {
-            sharedPreferences?.edit()?.putLong(TIME, time)?.apply()
-        }
-
-        fun getTime() = sharedPreferences?.getLong(TIME, 0);
     }
+
+    fun saveTime(time: Long) {
+        sharedPreferences?.edit()?.putLong(TIME, time)?.apply()
+    }
+
+    fun getTime() = sharedPreferences?.getLong(TIME, 0);
 }
