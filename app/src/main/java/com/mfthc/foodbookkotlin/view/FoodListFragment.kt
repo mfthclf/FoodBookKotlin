@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mfthc.foodbookkotlin.adapter.FoodAdapter
 import com.mfthc.foodbookkotlin.databinding.FragmentFoodListBinding
 import com.mfthc.foodbookkotlin.service.FoodAPI
 import com.mfthc.foodbookkotlin.service.FoodAPIService
@@ -24,6 +25,7 @@ class FoodListFragment : Fragment() {
     private var _binding: FragmentFoodListBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: FoodListViewModel
+    private val foodAdapter = FoodAdapter(arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,7 @@ class FoodListFragment : Fragment() {
         viewModel.refreshData()
 
         binding.foodRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.foodRecyclerView.adapter = foodAdapter
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.foodErrorMessage.visibility = View.GONE
@@ -59,6 +62,7 @@ class FoodListFragment : Fragment() {
 
     private fun observeLiveData() {
         viewModel.foods.observe(viewLifecycleOwner) {
+            foodAdapter.refreshFoodList(it)
             binding.foodRecyclerView.visibility = View.VISIBLE
         }
         viewModel.foodErrorMessage.observe(viewLifecycleOwner) {
